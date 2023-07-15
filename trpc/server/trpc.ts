@@ -1,4 +1,16 @@
 import { initTRPC } from "@trpc/server";
-const t = initTRPC.create();
-export const router = t.router;
-export const publicProcedure = t.procedure;
+import { createContext } from "./createContext";
+import { TRPCError } from "@trpc/server";
+export const t = initTRPC.context<typeof createContext>().create();
+
+export const isMiddlware = t.middleware(({ ctx, next }) => {
+	if (!ctx.isAdmin) {
+		throw new TRPCError({ code: "UNAUTHORIZED" });
+	}
+
+	return next({ ctx: { authorizedUserName: "kobin" } });
+	//* next can take in ctx and change it to pass.
+	//* if no argument is passed with next, then the same context is passed to the middlewware/router etc.
+});
+
+export const adminProcedure = t.procedure.use(isMiddlware);
