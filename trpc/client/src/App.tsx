@@ -1,10 +1,29 @@
 import "./App.css";
-import { createTRPCProxyClient, httpBatchLink } from "@trpc/client";
+import {
+	createTRPCProxyClient,
+	createWSClient,
+	httpBatchLink,
+	httpLink,
+	loggerLink,
+	splitLink,
+	wsLink,
+} from "@trpc/client";
 import { AppRouter } from "../../server/index";
 import { useEffect, useState } from "react";
 
 const trpc = createTRPCProxyClient<AppRouter>({
-	links: [httpBatchLink({ url: "http://localhost:3000" })],
+	links: [
+		loggerLink(),
+		splitLink({
+			condition: (op) => op.type === "subscription",
+			true: wsLink({ client: createWSClient({ url: "ws://localhost:3000" }) }),
+
+			false: httpBatchLink({
+				url: "http://localhost:3000",
+				headers: { authorization: "TOKEN" },
+			}),
+		}),
+	],
 });
 // TODO
 function App() {
@@ -21,9 +40,10 @@ function App() {
 		});
 	};
 	const handleLogin = () => {
-		trpc.adminData
-			.query()
-			.then((res) => setAdminName(res.ctx.authorizedUserName));
+		trpc.adminData.query().then((res) => {
+			console.log("res", res);
+			setAdminName(res.ctx.authorizedUserName);
+		});
 	};
 	useEffect(() => {
 		//* typeof appRouter
@@ -34,6 +54,15 @@ function App() {
 		trpc.getHello.query().then((res) => setMessage(res));
 		trpc.getUser.query().then((res) => setUser(res.name));
 	}, []);
+	useEffect(() => {
+		trpc.onUpdate.subscribe(undefined, {
+			onData: (input) => {
+				// ondata is called every time we call emit.next
+				// WHERE input is the data passed by the ee.emit thorugh the observables.
+				console.log(input);
+			},
+		});
+	}, [user]);
 
 	return (
 		<>
