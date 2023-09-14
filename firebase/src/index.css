@@ -1,0 +1,33 @@
+:root {
+	font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+
+	color-scheme: light dark;
+	color: rgba(255, 255, 255, 0.87);
+	background-color: #242424;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+}
+#container {
+	display: flex;
+	justify-content: space-around;
+	align-items: flex-start;
+	& button {
+		cursor: pointer;
+	}
+}
+#users {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+#user {
+	display: flex;
+	gap: 10px;
+}
+#form {
+	display: flex;
+	flex-direction: column;
+}

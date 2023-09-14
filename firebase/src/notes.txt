@@ -1,0 +1,5 @@
+C - addDoc(collectionReference, data)
+R - 
+R(all) - getDocs(collecionReference) -> QuerySnapShot
+U - updateDoc(documentReference, data)
+D - deleteDoc(documentReference)
