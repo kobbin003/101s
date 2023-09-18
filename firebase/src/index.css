@@ -27,7 +27,13 @@
 	display: flex;
 	gap: 10px;
 }
+.userInfo {
+	display: flex;
+}
 #form {
 	display: flex;
 	flex-direction: column;
+}
+#form_update {
+	display: flex;
 }

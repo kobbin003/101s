@@ -1,13 +1,40 @@
-import React, { FC } from "react";
-import { UserType } from "./App";
+import { FC, useState } from "react";
+import { deleteUser } from "./firebase/functions";
+import UpdateForm from "./UpdateForm";
+export type UserType = {
+	name: string;
+	age: number | null;
+	id: string;
+};
 
-const User: FC<UserType> = ({ name, age }) => {
+const User: FC<UserType> = ({ name, age, id }) => {
+	const [showUpdateForm, setShowUpdateForm] = useState(false);
+
+	const handleClickRemoveUser = () => {
+		deleteUser(id);
+	};
+
+	const handleClickUpdateUser = () => {
+		setShowUpdateForm(true);
+	};
+
 	return (
 		<div id="user">
-			<p>{name}</p>
-			<p>{age}</p>
-			<button>update</button>
-			<button>remove</button>
+			{showUpdateForm ? (
+				<UpdateForm
+					setShowUpdateForm={setShowUpdateForm}
+					name={name}
+					age={age?.toString()}
+					id={id}
+				/>
+			) : (
+				<div className="userInfo">
+					<p>{name}</p>
+					<p>{age}</p>
+					<button onClick={handleClickUpdateUser}>update</button>
+				</div>
+			)}
+			<button onClick={handleClickRemoveUser}>remove</button>
 		</div>
 	);
 };
