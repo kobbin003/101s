@@ -1,5 +1,5 @@
 import { ChangeEvent, FC, FormEvent, useState } from "react";
-import { addUser, updateUser } from "./firebase/functions";
+import { updateUser } from "./firebase/functions";
 
 type UserFormType = { name: string; age: string | undefined };
 
