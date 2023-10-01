@@ -1,0 +1,17 @@
+<h1><%= formName %></h1>
+<% if (messages.error) { %> <%= messages.error %> <% } %>
+<form
+	action="/login"
+	method="post"
+>
+	<% inputs.forEach(element => { %>
+	<label for="<%= element %>"><%= element %></label>
+	<input
+		type="<%= element %>"
+		name="<%= element %>"
+		id="<%= element %>"
+		required
+	/>
+	<% }) %>
+	<button type="submit"><%= formName %></button>
+</form>
