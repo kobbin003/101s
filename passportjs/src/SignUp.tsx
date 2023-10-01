@@ -1,8 +1,8 @@
-import React, { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 
 type Props = {};
 
-const SignUp = (props: Props) => {
+const SignUp = ({}: Props) => {
 	const [formData, setFormData] = useState({
 		name: "",
 		email: "",
