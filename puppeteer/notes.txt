@@ -1,0 +1,14 @@
+* $eval works with querySelector not with xPath:
+[ in the example, the xPath should be replaced with querySelector ]
+const imgSrc = await page.$eval(
+				`//article//div[@data-testid="UserAvatar-Container-${username}"]//img`,
+				(el) => el.getAttribute("src")
+			);
+			console.log("img", imgSrc);
+
+* cannot use el.getAttribute(like this code):
+const styleAttribute = await page.evaluate((el) => {
+				const profileImage = el.getAttribute('src');
+				return profileImage;
+			}, profileImage[0]);
+			console.log("el", styleAttribute);
