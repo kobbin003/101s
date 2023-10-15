@@ -1,0 +1,16 @@
+// console.log(usernameSelector);
+	// try {
+	// 	await page.waitForXPath(usernameInputXpath);
+	// 	// const usernameInput = await page.$("input");
+	// 	const usernameInput = await page.$x(usernameInputXpath);
+	// 	if (usernameInput.length > 0) {
+	// 		console.log("yes");
+	// 		await usernameInput[0].focus();
+	// 		// const usernameInputHTML = await page.evaluate((el) => {
+	// 		// 	console.log("el", el);
+	// 		// 	el[0].focus();
+	// 		// 	// return el.innerHTML;
+	// 		// }, usernameInput);
+	// 		// console.log("usernameInputHTML", usernameInputHTML);
+	// 	}
+	// } catch (error) {}
