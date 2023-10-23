@@ -1,9 +1,8 @@
-import React from "react";
 import { socket } from "../Socket";
 
 type Props = {};
 
-const ConnectionManager = (props: Props) => {
+const ConnectionManager = ({}: Props) => {
 	const handleClickConnect = () => {
 		socket.connect();
 	};
